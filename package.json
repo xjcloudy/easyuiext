@@ -1,0 +1,21 @@
+{
+  "name": "easyuiext",
+  "version": "0.0.1",
+  "description": "easyui的扩展",
+  "main": "index.js",
+  "directories": {
+    "test": "test",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "xj",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat":"~0.2.0",
+      "grunt-contrib-uglify":"~0.2.2"
+  }
+}
