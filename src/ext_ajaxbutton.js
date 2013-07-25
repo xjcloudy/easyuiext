@@ -4,8 +4,18 @@
  * Time:   18:06
  * E-mail:  xiejingcloudy@gmail.com
  * Description:
+ * ajaxbutton 用于有后台操作动作的按钮，可以起到防止重复操作的作用。
+ * 点击时自动 disable,需要在事件完成时手动enable。
+ * 支持html中声明onclick事件，也可以通过设置clickhandle属性来传递事件响应函数。
+ * 其他途径注册的事件会在初始化时自动被unbind掉。
  */
 (function ($) {
+    //注册组件
+    if($.inArray('ajaxbutton',$.parser.plugins)==-1){
+        $.parser.plugins.push('ajaxbutton');
+    }else{
+       return;
+    }
     $.fn.ajaxbutton = function (options, param) {
         if (typeof options == 'string') {
             if($.fn.ajaxbutton.methods.hasOwnProperty(options)){
