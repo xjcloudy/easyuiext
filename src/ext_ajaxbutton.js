@@ -11,16 +11,17 @@
  */
 (function ($) {
     //注册组件
-    if($.inArray('ajaxbutton',$.parser.plugins)==-1){
+    "use strict";
+    if ($.inArray('ajaxbutton', $.parser.plugins) === -1) {
         $.parser.plugins.push('ajaxbutton');
-    }else{
+    } else {
         return;
     }
     $.fn.ajaxbutton = function (options, param) {
-        if (typeof options == 'string') {
-            if($.fn.ajaxbutton.methods.hasOwnProperty(options)){
-                return $.fn.ajaxbutton.methods[options](this,param);
-            }else{
+        if (typeof options === 'string') {
+            if ($.fn.ajaxbutton.methods.hasOwnProperty(options)) {
+                return $.fn.ajaxbutton.methods[options](this, param);
+            } else {
                 return $.fn.linkbutton.methods[options](this, param);
 
             }
@@ -36,8 +37,8 @@
                 });
                 $(this).removeAttr('disabled');
                 $(this).unbind();
-                this.__dom__click_handle__=$(this)[0].onclick;
-                $(this)[0].onclick=null;
+                this.dom_click_handle = $(this)[0].onclick;
+                $(this)[0].onclick = null;
                 $(this).one("click", clickhandle);
             }
 
@@ -50,21 +51,22 @@
         var opt = $(this).linkbutton("options");
         if (opt && opt.clickHandle && typeof opt.clickHandle === "function") {
             opt.clickHandle(this);
-        }else{
-            this.__dom__click_handle__&&this.__dom__click_handle__(this);
+        } else if (this.dom_click_handle) {
+            this.dom_click_handle(this);
         }
 
 
-    };
+    }
+
     $.fn.ajaxbutton.methods = {
         "disable": function (jq, param) {
             jq.each(function () {
                 var _opt = $(this).linkbutton('options');
                 if (!_opt.disabled) {
-                    $.fn.linkbutton.methods["disable"]($(this), param);
+                    $.fn.linkbutton.methods.disable($(this), param);
                     $(this).ajaxbutton({disabled: true, iconCls: 'icon-loading', oldicon: _opt.iconCls});
                 }
-            })
+            });
 
 
         },
@@ -72,7 +74,7 @@
             jq.each(function () {
                 var _opt = $(this).linkbutton('options');
                 if (_opt.disabled) {
-                    $.fn.linkbutton.methods["enable"]($(this), param);
+                    $.fn.linkbutton.methods.enable($(this), param);
                     $(this).one("click", clickhandle);
                     $(this).ajaxbutton({disabled: false, iconCls: _opt.oldicon});
                 }
@@ -80,7 +82,7 @@
 
 
         }
-    }
+    };
 
     $.fn.ajaxbutton.parseOptions = function (target) {
         return $.fn.linkbutton.parseOptions(target);
