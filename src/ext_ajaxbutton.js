@@ -14,14 +14,14 @@
     if($.inArray('ajaxbutton',$.parser.plugins)==-1){
         $.parser.plugins.push('ajaxbutton');
     }else{
-       return;
+        return;
     }
     $.fn.ajaxbutton = function (options, param) {
         if (typeof options == 'string') {
             if($.fn.ajaxbutton.methods.hasOwnProperty(options)){
                 return $.fn.ajaxbutton.methods[options](this,param);
             }else{
-                return $.fn.ajaxbutton.methods[options](this, param);
+                return $.fn.linkbutton.methods[options](this, param);
 
             }
         }
@@ -36,6 +36,8 @@
                 });
                 $(this).removeAttr('disabled');
                 $(this).unbind();
+                this.__dom__click_handle__=$(this)[0].onclick;
+                $(this)[0].onclick=null;
                 $(this).one("click", clickhandle);
             }
 
@@ -47,8 +49,11 @@
         $(this).ajaxbutton("disable");
         var opt = $(this).linkbutton("options");
         if (opt && opt.clickHandle && typeof opt.clickHandle === "function") {
-            opt.clickHandle.call(this);
+            opt.clickHandle(this);
+        }else{
+            this.__dom__click_handle__&&this.__dom__click_handle__(this);
         }
+
 
     };
     $.fn.ajaxbutton.methods = {
