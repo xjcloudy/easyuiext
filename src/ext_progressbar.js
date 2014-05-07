@@ -10,7 +10,7 @@
     if (!$.fn.progressbar) {
         return;
     }
-    $.fn.progressbar.methods = $.fn.extend($.fn.progressbar.methods, {"setBarColor": function (jq, color) {
-        jq.find(".progressbar-value .progressbar-text").css("background-color", color);
+    $.fn.progressbar.methods = $.fn.extend($.fn.progressbar.methods, {"setBarStyle": function (jq, style) {
+        jq.find(".progressbar-value .progressbar-text").css(style);
     }});
 })(jQuery);
