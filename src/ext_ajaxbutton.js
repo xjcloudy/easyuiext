@@ -61,10 +61,10 @@
     $.fn.ajaxbutton.methods = {
         "disable": function (jq, param) {
             jq.each(function () {
-                var _opt = $(this).linkbutton('options');
-                if (!_opt.disabled) {
+                var opt = $(this).linkbutton('options');
+                if (!opt.disabled) {
                     $.fn.linkbutton.methods.disable($(this), param);
-                    $(this).ajaxbutton({disabled: true, iconCls: 'icon-loading', oldicon: _opt.iconCls});
+                    $(this).ajaxbutton({disabled: true, iconCls: 'icon-loading', oldicon: opt.iconCls});
                 }
             });
 
@@ -72,11 +72,11 @@
         },
         "enable": function (jq, param) {
             jq.each(function () {
-                var _opt = $(this).linkbutton('options');
-                if (_opt.disabled) {
+                var opt = $(this).linkbutton('options');
+                if (opt.disabled) {
                     $.fn.linkbutton.methods.enable($(this), param);
                     $(this).one("click", clickhandle);
-                    $(this).ajaxbutton({disabled: false, iconCls: _opt.oldicon});
+                    $(this).ajaxbutton({disabled: false, iconCls: opt.oldicon});
                 }
             });
 
@@ -87,7 +87,9 @@
     $.fn.ajaxbutton.parseOptions = function (target) {
         return $.fn.linkbutton.parseOptions(target);
 
+
     };
+
     $.fn.ajaxbutton.defaults = $.extend({}, $.fn.linkbutton.defaults, {clickHandle: null, disabled: false});
 
-})(jQuery)
+})(jQuery);
